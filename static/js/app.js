@@ -14,6 +14,7 @@ function fillDropdown(idsList) {
 
 function optionChanged(){
     
+    //Setup Variables for Sections of HTML
     let currentID = d3.select("#selDataset").property("value")
     let pannelBody = d3.select("#sample-metadata")
     
@@ -117,23 +118,6 @@ function optionChanged(){
         }
     })
 }
-
-    
-
-
-//Create Function to Do Bar Graph
-function barGraph(xvals,yvals) {
-    let trace = {
-        x: xvals,
-        y: yvals,
-        type: 'bar'
-    }
-
-    Plotly.newPlot("plot", data);
-}
-
-
-
 
 //Use D3 to read in samples.json
 
