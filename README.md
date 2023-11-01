@@ -3,7 +3,9 @@ Challenge Assignment for Javascript
 
 Data for this project was from the provided project files.
 
-Layout for assignment came from starter file.
+Attribution: "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
+
+Layout for assignment html came from starter file.
 
 Specific sections using sources listed below:
 
@@ -69,4 +71,3 @@ The Following HTML was provided in starter files:
 
     </html>
 
-    

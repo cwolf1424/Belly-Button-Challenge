@@ -141,4 +141,5 @@ d3.json(samplesDataUrl).then(function(data){
 
     fillDropdown(testSubjIDs);
     optionChanged();
+    
 });
