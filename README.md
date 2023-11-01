@@ -71,3 +71,13 @@ The Following HTML was provided in starter files:
 
     </html>
 
+--------------------------------------------------
+app.js
+--------------------------------------------------
+
+The following section:
+
+    pannelBody.html("")
+    let unorderedList = pannelBody.append("ul")
+
+I was assisted by Benjamin Alford, my instructor.
