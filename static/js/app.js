@@ -1,9 +1,7 @@
-//Create Startup Function
-function init() {
 
-}
-
-//Create Funtion to Fill Dropdown
+//--------------------------------------
+//Funtion to Fill Dropdown Options (Test Subject ID's)
+//--------------------------------------
 function fillDropdown(idsList) {
     let dropDown = d3.select("#selDataset");
     
@@ -11,6 +9,10 @@ function fillDropdown(idsList) {
         dropDown.append('option').text(id).property('value', id);
     })
 }
+
+//--------------------------------------
+//Function to React to Dropdown Change
+//--------------------------------------
 
 function optionChanged(){
     
@@ -41,28 +43,6 @@ function optionChanged(){
     unorderedList.append("p").text(`BBType: ${curBBType}`)
     unorderedList.append("p").text(`WFreq: ${curWFreq}`)
 
-    //Fill Demographics
-    //metadata.forEach(subject => { 
-    //    if (subject.id == currentID) {
-            
-    //        curID = subject.id;
-    //        curEth = subject.ethnicity;
-    //       curGend = subject.gender;
-    //        curAge = subject.age;
-    //        curLoc = subject.location;
-    //        curBBType = subject.bbtype;
-    //        curWFreq = subject.wfreq;
-            
-    //        unorderedList.append("p").text(`ID: ${curID}`)
-    //        unorderedList.append("p").text(`Ethnicity: ${curEth}`)
-    //        unorderedList.append("p").text(`Gender: ${curGend}`)
-    //        unorderedList.append("p").text(`Age: ${curAge}`)
-    //        unorderedList.append("p").text(`Location: ${curLoc}`)
-    //        unorderedList.append("p").text(`BBType: ${curBBType}`)
-    //        unorderedList.append("p").text(`WFreq: ${curWFreq}`)
-    //    }
-    //})
-
     //Create Bar Chart
     samples.forEach(sample => {
         if (sample.id == currentID) {
@@ -88,6 +68,8 @@ function optionChanged(){
                 let otuLayout = {
                     title: "Prevalence of Operational Taxonomic Units",
                 }
+
+            //Plot the Bar Chart in Div "bar"    
             Plotly.newPlot("bar", otuTrace, otuLayout);     
         }
     })
@@ -134,23 +116,29 @@ function optionChanged(){
                         title:"OTU ID"
                     }
                 };
-
+            
+            //Plot the Bubble Chart in Div "bar" 
             Plotly.newPlot("bubble", otuTrace2, otuLayout2);     
         }
     })
 }
 
-//Use D3 to read in samples.json
 
+//--------------------------------------
+//Use D3 to read in samples.json
+//--------------------------------------
+
+//Set Constant for Data URL
 const samplesDataUrl = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
 
+//Read Samples.json and Run Funtions
 d3.json(samplesDataUrl).then(function(data){
+
+    //Set Variables
     testSubjIDs = data.names;
     metadata = data.metadata;
     samples = data.samples;
+
     fillDropdown(testSubjIDs);
     optionChanged();
 });
-
-init();
-
