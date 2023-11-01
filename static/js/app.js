@@ -59,10 +59,11 @@ function optionChanged(){
             
             //Trace Bar Plot
             let otuTrace = [{
-                 x: renamedTop10OTUIds,
-                 y: top10Samples,
+                 y: renamedTop10OTUIds,
+                 x: top10Samples,
                  name: sample.otu_labels,
-                type: 'bar'
+                type: 'bar',
+                orientation: "h"
                 }];
             
                 let otuLayout = {
@@ -141,5 +142,5 @@ d3.json(samplesDataUrl).then(function(data){
 
     fillDropdown(testSubjIDs);
     optionChanged();
-    
+
 });
