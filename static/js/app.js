@@ -17,15 +17,13 @@ function optionChanged(){
     //Setup Variables for Sections of HTML
     let currentID = d3.select("#selDataset").property("value")
     let pannelBody = d3.select("#sample-metadata")
+    let currentSubject = metadata.filter(function(item) {if (item.id == currentID) {return item}})
     
     //Clear Demographics Info Pannel
     pannelBody.html("")
     let unorderedList = pannelBody.append("ul")
 
     //Grab Metadata for Current Subject
-    let currentSubject = metadata.filter(function(item) {if (item.id == currentID) {return item}})
-    console.log (currentSubject)
-    
     let curID = currentSubject[0].id;
     let curEth = currentSubject[0].ethnicity;
     let curGend = currentSubject[0].gender;
@@ -34,6 +32,7 @@ function optionChanged(){
     let curBBType = currentSubject[0].bbtype;
     let curWFreq = currentSubject[0].wfreq;
 
+    //Log That Metadata to Info Pannel
     unorderedList.append("p").text(`ID: ${curID}`)
     unorderedList.append("p").text(`Ethnicity: ${curEth}`)
     unorderedList.append("p").text(`Gender: ${curGend}`)
@@ -67,14 +66,21 @@ function optionChanged(){
     //Create Bar Chart
     samples.forEach(sample => {
         if (sample.id == currentID) {
-            let sampleOTUs= sample.otu_ids.map(function(otuID) {
+            
+            //Limit Samples
+            let top10Samples = sample.sample_values.slice(0,10);
+            let top10OTUIds = sample.otu_ids.slice(0,10);
+            
+            //Rename Current Sample OTUs
+            let renamedTop10OTUIds = top10OTUIds.map(function(otuID) {
                 newOTUId=`OTU ${otuID}`;
                 return newOTUId
             })
-        
+            
+            //Trace Bar Plot
             let otuTrace = [{
-                 x: sampleOTUs,
-                 y: sample.sample_values,
+                 x: renamedTop10OTUIds,
+                 y: top10Samples,
                  name: sample.otu_labels,
                 type: 'bar'
                 }];
@@ -90,20 +96,35 @@ function optionChanged(){
     samples.forEach(sample => {
         if (sample.id == currentID) {
             
-            let sampleOTUs= sample.otu_ids.map(function(otuID) {
+            //Limit Samples
+            let top10Samples = sample.sample_values.slice(0,10);
+            let top10OTUIds = sample.otu_ids.slice(0,10);
+
+            //Rename Current Sample OTUs
+            let renamedTop10OTUIds = top10OTUIds.map(function(otuID) {
                 newOTUId=`OTU ${otuID}`;
                 return newOTUId
-            })
+           })
         
             let otuTrace2 = [{
-                 x: sample.otu_ids,
-                 y: sample.sample_values,
-                 text: sample.otu_ids,
+                 x: top10OTUIds,
+                 y: top10Samples,
+                 text: renamedTop10OTUIds,
                  mode: 'markers',
                  marker: {
-                    color: ["red", "green", "blue", "purple", "grey", "black"],
+                    color: ["#000000",
+                        "#FF0000",
+                        "#00FF00",
+                        "#0000FF",
+                        "#FFFF00",
+                        "#FF00FF",
+                        "#00FFFF",
+                        "#FFFFCC",
+                        "#FF8080",
+                        "#CCCCFF"
+                    ],
                     size: sample.sample_values,
-                    sizeref: 2
+                    sizeref: 3
                  }
                 }];
             
